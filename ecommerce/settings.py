@@ -179,21 +179,3 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-
-# STATIC_URL = '/static/'
-
-# STATICFILES_DIRS = (
-#      os.path.join(BASE_DIR, "static"),
-#  )
-
-#STATIC_ROOT = os.path.join(BASE_DIR, "live-static-files", "static")
-
-#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-#STATIC_ROOT = "/home/cfedeploy/webapps/cfehome_static_root/"
-
-# MEDIA_URL = "/media/"
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, "live-static-files", "media/")
