@@ -2,11 +2,7 @@ from django.shortcuts import get_object_or_404, render
 
 from .models import Category, Product
 
-from django.core.exceptions import PermissionDenied
 
-def edit(request, pk):
-    if not request.user.is_staff:
-        raise PermissionDenied
 
 def product_all(request):
     products = Product.objects.prefetch_related("product_image").filter(is_active=True)
