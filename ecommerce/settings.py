@@ -89,10 +89,7 @@ DATABASES = {
     }
 }
 
-DATABASES = {
-    'default': {
-   
-        'CONN_MAX_AGE': 500}}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -151,3 +148,4 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
