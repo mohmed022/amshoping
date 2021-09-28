@@ -151,16 +151,16 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #STATIC_ROOT = os.path.join(BASE_DIR, "live-static-files", "static-root")
 # STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# STATIC_URL = "/static/"
+STATIC_URL = "/static/"
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfile")
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 #MEDIA_ROOT = os.path.join(BASE_DIR, "live-static-files", "media-root")
 
-# MEDIA_URL = "/media/"
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 # Basket session ID
 BASKET_SESSION_ID = "basket"
@@ -181,11 +181,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, "static"),
+# )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "live-static-files", "static")
 
@@ -193,6 +193,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "live-static-files", "static")
 
 #STATIC_ROOT = "/home/cfedeploy/webapps/cfehome_static_root/"
 
-MEDIA_URL = "/media/"
+# MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "live-static-files", "media/")
