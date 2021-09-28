@@ -1,0 +1,599 @@
+{% extends "../bose.html" %}
+{% load static %}
+{% block title %}Store - Low Prices in Books & more{% endblock %}
+{% block content %}
+
+
+
+
+
+
+
+
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <span>special offer</span>
+        <h3>sale upto 50% off</h3>
+        <a href="#" class="btn">shop now</a>
+    </div>
+
+    <div class="image">
+        <img src="{% static 'images/p-8.jpg' %}" alt="mohmed">
+    </div>
+
+</section>
+
+<!-- home section ends -->
+
+
+
+
+
+
+
+
+
+ <!-- category section starts  -->
+
+<section class="category">
+
+    <h1 class="heading"> shop by <span>category</span> </h1>
+
+    <div class="box-container">
+{% for c in categories %}
+        <div class="box"> {% if category.slug == c.slug %}{% endif %} 
+            <img src="{{ c.photos.url }}" alt="">
+            <div class="content">
+                <span>upto 50% off</span>
+                <h3>{{ c.name|title }}</h3>
+                <a href="{{ c.get_absolute_url }}" class="btn">shop now</a>
+            </div>
+        </div>
+ {% endfor %}
+        
+    </div>
+
+</section>
+
+<!-- category section ends -->
+
+
+
+
+
+
+
+
+
+
+<section class="products" id="products">
+
+    <h1 class="heading"> latest <span>products</span> </h1>
+  
+  <div class="container">
+{% if messages %}
+<div class="alert alert-warning" alert-{{ message.tags }}" role="alert">
+{% for message in messages  %}
+  {{message|safe}} - <a href="{% url "account:wishlist" %}" class="alert-link">Your Wishlist</a>.
+  
+{% endfor %}
+</div>
+{% endif %} 
+
+
+   <div class="swiper-container product-slider gap">
+   {% if not products %}
+        <div class="col-12">There are currently no products active</div>
+        {% else %}
+    <div class="swiper-wrapper">
+       {% for product in products %}
+        <div class="swiper-slide">
+            <div class="slide">
+                <div class="icons">
+                  
+
+        <a href="{% url "account:user_wishlist" product.id  %}" 
+        class="fas fa-heart" role="button" aria-disabled="true"></a>
+
+
+                    <a href="#" class="fas fa-search"></a>
+                    <a href="{{ product.get_absolute_url }}" class="fas fa-eye"></a>
+                </div>
+                         {% for image in product.product_image.all %}
+                  {% if image.is_feature%}
+                <div class="image">
+                    <img src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
+                </div>
+                {% endif %}
+                 {% endfor %}
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star">1</i>
+                        <i class="fas fa-star">2</i>
+                        <i class="fas fa-star">3</i>
+                        <i class="fas fa-star">4</i>
+                        <i class="far fa-star">5</i>
+                        <span>( 250 reviews )</span>
+
+
+
+
+                        
+                    </div>
+
+ <label for="select">Qty</label>
+            <select id="select" class="h6 store-select-dropdown">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+
+
+
+                    <h3>{{ product.title|slice:":50" }}</h3>
+                        
+           
+
+                    <div class="price">{{product.regular_price}}<span>$18.99</span></div>
+                   <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Add to
+          basket</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+
+<script>
+
+$(document).on('click', '#add-button', function (e) {
+  e.preventDefault();
+  $.ajax({
+    type: 'POST',
+    url: '{% url "basket:basket_add" %}',
+    data: {
+      productid: $('#add-button').val(),
+      productqty: $('#select option:selected').text(),
+      csrfmiddlewaretoken: "{{csrf_token}}",
+      action: 'post'
+    },
+    success: function (json) {
+      document.getElementById("basket-qty").innerHTML = json.qty
+    },
+    error: function (xhr, errmsg, err) {}
+  });
+})
+
+
+
+
+</script>
+
+</section>
+
+
+
+
+
+{% comment %} <div class="swiper-container product-slider">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="slide">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-search"></a>
+                    <a href="#" class="fas fa-eye"></a>
+                </div>
+                <div class="image">
+                    <img src="{% static 'images/p-6.jpg' %}" alt="">
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>( 250 reviews )</span>
+                    </div>
+                    <h3>woman's clothing</h3>
+                    <div class="price">$15.99 <span>$18.99</span></div>
+                    <a href="http://127.0.0.1:5500/3D.html" class="btn">add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slide">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-search"></a>
+                    <a href="#" class="fas fa-eye"></a>
+                </div>
+                <div class="image">
+                    <img src="{% static 'images/p-7.jpg' %}" alt="">
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>( 250 reviews )</span>
+                    </div>
+                    <h3>man's clothing</h3>
+                    <div class="price">$15.99 <span>$18.99</span></div>
+                    <a href="http://127.0.0.1:5500/3D.html" class="btn">add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slide">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-search"></a>
+                    <a href="#" class="fas fa-eye"></a>
+                </div>
+                <div class="image">
+                    <img src="{% static 'images/p-8.jpg' %}" alt="">
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>( 250 reviews )</span>
+                    </div>
+                    <h3>woman's clothing</h3>
+                    <div class="price">$15.99 <span>$18.99</span></div>
+                    <a href="http://127.0.0.1:5500/3D.html" class="btn">add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slide">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-search"></a>
+                    <a href="#" class="fas fa-eye"></a>
+                </div>
+                <div class="image">
+                    <img src="{% static 'images/p-9.jpg' %}" alt="">
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>( 250 reviews )</span>
+                    </div>
+                    <h3>man's clothing</h3>
+                    <div class="price">$15.99 <span>$18.99</span></div>
+                    <a href="http://127.0.0.1:5500/3D.html" class="btn">add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slide">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-search"></a>
+                    <a href="#" class="fas fa-eye"></a>
+                </div>
+                <div class="image">
+                    <img src="{% static 'images/p-10.jpg' %}" alt="">
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>( 250 reviews )</span>
+                    </div>
+                    <h3>woman's clothing</h3>
+                    <div class="price">$15.99 <span>$18.99</span></div>
+                    <a href="http://127.0.0.1:5500/3D.html" class="btn">add to cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+
+</section> {% endcomment %}
+
+<!-- products section ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- featured section starts  -->
+{% comment %}  
+<section class="featured" id="featured">
+
+    <h1 class="heading"> <span>featured</span> products </h1>
+
+    <div class="box-container">
+        {% for product in products %}
+        <div class="box">
+        
+            <div class="image-container">
+            
+                <div class="small-image">
+                  {% for image in product.product_image.all %}
+            {% if image.is_feature%}
+                    <img src="{{ image.image.url }}" class="small-image-1" alt="{{ image.image.alt_text }}">
+                    <img src="{{ image.image.url }}" class="small-image-1" alt="{{ image.image.alt_text }}">
+                       {% endif %}
+            {% endfor %}
+                </div>
+                <div class="big-image">
+                
+                    <img src="{{ image.image.url }}" class="big-image-1" alt="{{ image.image.alt_text }}">
+             
+                </div>
+            </div>
+            <div class="content">
+                <h3>{{ product.title }}</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>( 250 reviews )</span>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora quasi nesciunt, error fuga facilis autem rerum cumque animi rem natus.</p>
+                <div class="price">${{product.regular_price}}<span>$18.99</span></div>
+                <a href="{{ product.get_absolute_url }}" class="btn">add to cart</a>
+            
+
+            </div>
+              
+        </div>
+                
+ {% endcomment %}
+
+{% comment %} 
+        <div class="box">
+            <div class="image-container">
+                <div class="small-image">
+                    <img src="{% static 'images/f-2-1.jpg' %}" class="small-image-2" alt="">
+                    <img src="{% static 'images/f-2-2.jpg' %}" class="small-image-2" alt="">
+                    <img src="{% static 'images/f-2-3.jpg' %}" class="small-image-2" alt="">
+                </div>
+                <div class="big-image">
+                    <img src="{% static 'images/f-2-1.jpg' %}" class="big-image-2" alt="">
+                </div>
+            </div>
+            <div class="content">
+                <h3>woman's clothing</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>( 250 reviews )</span>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora quasi nesciunt, error fuga facilis autem rerum cumque animi rem natus.</p>
+                <div class="price">$15.99 <span>$18.99</span></div>
+                <a href="http://127.0.0.1:5500/3D.html" class="btn">add to cart</a>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image-container">
+                <div class="small-image">
+                    <img src="{% static 'images/f-3-1.jpg' %}" class="small-image-3" alt="">
+                    <img src="{% static 'images/f-3-2.jpg' %}" class="small-image-3" alt="">
+                    <img src="{% static 'images/f-3-3.jpg' %}" class="small-image-3" alt="">
+                </div>
+                <div class="big-image">
+                    <img src="{% static 'images/f-3-1.jpg' %}" class="big-image-3" alt="">
+                </div>
+            </div>
+            <div class="content">
+                <h3>man's clothing</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>( 250 reviews )</span>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora quasi nesciunt, error fuga facilis autem rerum cumque animi rem natus.</p>
+                <div class="price">$15.99 <span>$18.99</span></div>
+                <a href="http://127.0.0.1:5500/3D.html" class="btn">add to cart</a>
+            </div>
+        </div> {% endcomment %}
+  {% comment %} {% endfor %}
+    </div>
+
+</section>  {% endcomment %}
+
+<!-- featured section ends -->
+
+
+
+
+
+
+
+
+
+<!-- deal section starts  -->
+
+<section class="deal" id="deal">
+
+    <h1 class="heading"> special <span>deal</span> </h1>
+
+    <div class="row">
+
+        <div class="content">
+            <span class="discount">upto 50% off</span>
+            <h3 class="text">deal of the day</h3>
+            <div class="count-down">
+                <div class="box">
+                    <h3 id="days">00</h3>
+                    <span>days</span>
+                </div>
+                <div class="box">
+                    <h3 id="hours">00</h3>
+                    <span>hours</span>
+                </div>
+                <div class="box">
+                    <h3 id="minutes">00</h3>
+                    <span>minutes</span>
+                </div>
+                <div class="box">
+                    <h3 id="seconds">00</h3>
+                    <span>seconds</span>
+                </div>
+            </div>
+            <a href="http://127.0.0.1:5500/new%20lest.html" class="btn">shop now</a>
+        </div>
+
+        <div class="image">
+            <img src="{% static 'images/counter-img.jpg' %}" alt="">
+        </div>
+
+    </div>
+
+</section>
+
+<!-- deal section ends -->
+
+
+
+
+
+<!-- review section starts  -->
+
+<section class="review" id="review">
+
+    <h1 class="heading"> customers <span>review</span> </h1>
+
+<div class="swiper-container review-slider">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="slide">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt nihil aut praesentium qui non, magnam perspiciatis commodi fugit cumque quos, deserunt quidem esse fuga facilis exercitationem, dolorum itaque corrupti tempore.</p>
+                <div class="user">
+                    <img src="{% static 'images/pic-1.jpg' %}" alt="">
+                    <div class="user-info">
+                        <h3>john deo</h3>
+                        <span>happy customer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slide">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt nihil aut praesentium qui non, magnam perspiciatis commodi fugit cumque quos, deserunt quidem esse fuga facilis exercitationem, dolorum itaque corrupti tempore.</p>
+                <div class="user">
+                    <img src="{% static 'images/pic-2.jpg' %}" alt="">
+                    <div class="user-info">
+                        <h3>john deo</h3>
+                        <span>happy customer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slide">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt nihil aut praesentium qui non, magnam perspiciatis commodi fugit cumque quos, deserunt quidem esse fuga facilis exercitationem, dolorum itaque corrupti tempore.</p>
+                <div class="user">
+                    <img src="{% static 'images/pic-3.jpg' %}" alt="">
+                    <div class="user-info">
+                        <h3>john deo</h3>
+                        <span>happy customer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="slide">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt nihil aut praesentium qui non, magnam perspiciatis commodi fugit cumque quos, deserunt quidem esse fuga facilis exercitationem, dolorum itaque corrupti tempore.</p>
+                <div class="user">
+                    <img src="{% static 'images/pic-4.jpg' %}" alt="">
+                    <div class="user-info">
+                        <h3>john deo</h3>
+                        <span>happy customer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
+
+<!-- review section ends -->
+
+
+
+
+{% endblock %}
+
+

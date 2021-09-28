@@ -1,0 +1,179 @@
+{% extends "../bose.html" %}
+{% load static %}
+{% block title %}
+{% if product %}{{ product.title }}{% else %}Product{% endif %}
+{% endblock %}
+{% block content %}
+
+ 
+
+
+ 
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static 'css/new lest.css' %}">
+
+
+
+
+
+ <div class="container">
+{% if messages %}
+<div class="alert alert-warning" alert-{{ message.tags }}" role="alert">
+{% for message in messages  %}
+  {{message|safe}} - <a href="{% url "account:wishlist" %}" class="alert-link">Your Wishlist</a>.
+{% endfor %}
+</div>
+{% endif %} 
+ 
+
+
+
+
+
+
+<div class="container">
+    <div id="toggler" class="fas fa-sun"></div>
+     <div class="box-container">
+        <h1 class="heading"> <span>featured</span> products </h1>          
+        <div class="box">
+           <div class="image-container">
+              <div class="small-image">
+                {% for image in product.product_image.all %}   {% if image.is_feature %}
+                 <img src="{{ image.image.url }}" class="small-img-1" alt="{{ image.image.alt_text }}">
+                {% else %}
+                 <img src="{{ image.image.url }}" class="small-img-1" alt="{{ image.image.alt_text }}">
+                {% endif %} {% endfor %}
+                </div>
+                                {% for image in product.product_image.all %}   {% if image.is_feature %}
+
+                <div class="big-image">
+                 <img src="{{ image.image.url }}" class="big-img-1" alt="{{ image.image.alt_text }}">
+              {% endif %} {% endfor %}
+                </div>
+                 </div>
+
+            <div class="content">
+                <h3>{{ product.title }}</h3>
+                <div class="stars">
+                    <i class="fas fa-star">1</i>
+                    <i class="fas fa-star">2</i>
+                    <i class="fas fa-star">3</i>
+                    <i class="fas fa-star">4</i>
+                    <i class="fas fa-star">5</i>
+                </div>
+            <label for="select">Qty</label>
+            <select id="select" class="h6 store-select-dropdown">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="5">4</option>
+              <option value="6">5</option>
+              <option value="7">6</option>
+              <option value="8">7</option>
+              <option value="9">8</option>
+              <option value="10"9</option>
+            </select>
+
+
+                <p>{{ product.description }}</p>
+ <hr>
+
+                <div class="price"> ${{ product.regular_price }} <span>${{ product.discount_price}}</span> </div>
+
+
+
+
+            <button type="button"  id="add-button" value="{{product.id}}" class="btn btn-success fw500">Add to basket</button> 
+
+
+
+
+
+
+
+
+        <a href="{% url "account:user_wishlist" product.id  %}" class="btn btn-light fw500" role="button" id="add-buttonm" aria-disabled="true">Add to Wish List</a>
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+            </div>
+        </div>                               
+
+    </div>
+
+</div>
+
+
+<script>
+
+  
+document.querySelectorAll('.small-img-1').forEach(image =>{
+  image.addEventListener('click', () =>{
+      var src = image.getAttribute('src');
+      document.querySelector('.big-img-1').src = src;
+  });
+});
+
+document.querySelectorAll('.small-img-2').forEach(image =>{
+  image.addEventListener('click', () =>{
+      var src = image.getAttribute('src');
+      document.querySelector('.big-img-2').src = src;
+  });
+});
+
+document.querySelectorAll('.small-img-3').forEach(image =>{
+  image.addEventListener('click', () =>{
+      var src = image.getAttribute('src');
+      document.querySelector('.big-img-3').src = src;
+  });
+});
+
+document.querySelectorAll('.small-img-4').forEach(image =>{
+  image.addEventListener('click', () =>{
+      var src = image.getAttribute('src');
+      document.querySelector('.big-img-4').src = src;
+  });
+});
+
+$(document).on('click', '#add-button', function (e) {
+  e.preventDefault();
+  $.ajax({
+    type: 'POST',
+    url: '{% url "basket:basket_add" %}',
+    data: {
+      productid: $('#add-button').val(),
+      productqty: $('#select option:selected').text(),
+      csrfmiddlewaretoken: "{{csrf_token}}",
+      action: 'post'
+    },
+    success: function (json) {
+      document.getElementById("basket-qty").innerHTML = json.qty
+    },
+    error: function (xhr, errmsg, err) {}
+  });
+})
+
+
+		
+
+</script>
+
+
+
+
+
+
+  {% endblock %}

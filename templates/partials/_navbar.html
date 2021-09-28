@@ -1,0 +1,129 @@
+ 
+{% load static %}
+
+
+
+{% block content %}
+ 
+
+
+
+
+
+
+<!-- header section starts  -->
+<header>
+
+    <a href="{% url "catalogue:store_home" %}" class="logo">A&m Shoping<span>.</span></a>
+    <form action="#">
+        <input type="search" id="search-bar">
+        <label for="search-bar" class="fas fa-search"></label>
+    </form>
+
+    <div class="icons">
+        <div id="menu-bar" class="fas fa-bars"></div>
+        <div id="theme-toggler" class="fas fa-moon"></div>
+        <a href="{% url "account:wishlist" %}" class="fas fa-heart"></a>
+        <a href="{% url "account:login" %}" class="fas fa-user"></a>
+       
+      
+        <a type="button" class="fas fa-shopping-cart" role="button" href="{% url "basket:basket_summary" %}"
+        {% with total_qty=basket|length %}
+        <div id="basket-qty" class="basket-qty">
+              {% if total_qty > 0 %}
+              {{ total_qty }}
+              {% else %}
+              0
+              {% endif %}
+            </div>
+            {% endwith %}
+              <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" he ight="22" fill="currentColor" class="bi bi-cart3"
+                viewBox="0 0 16 16">
+                <path
+                  d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+              </svg>
+            </div>
+          </a>
+          
+        </div>
+          
+
+
+
+
+
+
+ 
+      
+  
+
+
+
+ 
+
+        
+    </div>
+
+</header>
+
+
+
+
+
+
+
+<!-- header section ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- navbar section  -->
+
+<nav class="navbar">
+
+    <div class="user">
+        <img src="{% static 'images/user-img.png' %}" alt="">
+           {% if user.is_authenticated %}
+        <h3>{{ request.user.name }}</h3> 
+        {% else %}
+       <a href="{% url "account:login" %}">Login</a>
+            {% endif %}
+    </div>
+
+    <div class="links">
+        <a href="{% url 'catalogue:store_home' %}">home</a>
+        <a href="#products">products</a>
+        <a href="#featured">featured</a>
+        <a href="#deal">deal</a>
+        <a href="#review">review</a>
+   
+       {% if user.is_authenticated %}
+        <a href="{% url "account:dashboard" %}">Your Account</a>
+        <a href="#">Orders</a>
+        <a href="{% url "account:logout" %}">Logout</a>
+        {% else %}
+        <a href="{% url "account:login" %}">Login</a>
+        {% endif %}
+    </div>
+
+    <div id="close" class="fas fa-times"></div>
+
+</nav>
+
+
+
+
+
+
+
+
+{% endblock%}

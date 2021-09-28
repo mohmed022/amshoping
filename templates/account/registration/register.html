@@ -1,0 +1,94 @@
+{% extends "../sub_base.html" %}
+{% load static %}
+{% block title %}Register Account{% endblock %}
+{% block sub_content %}  
+  
+  
+  
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static 'css/signin.css' %}" />
+    <title>Sign in & Sign up Form</title>
+  </head>
+  <body>
+  <form class="sign-up-form" action="." method="post">
+  
+
+    {% csrf_token %}
+            <h2 class="title">Sign up</h2>
+             <p class="mb-4">It's free and only takes a minute.</p>
+
+{% if form.errors %}
+  <p>Please correct the following errors:</p>
+  {% for field in form %}
+  {% if field.errors %}
+  <div class="alert alert-primary" role="alert">
+    {{ field.label }}: {{ field.errors|striptags }}
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+     
+  
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              
+              <input type="text" placeholder="Username" {{ form.user_name.input }}
+               (Required) {{ form.user_name }} 
+            </div>
+
+
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Email" {{ form.email.input }} 
+              (Required) {{ form.email }}
+            </div>
+
+
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" {{ form.password.input}}
+               {{ form.password }}
+            </div>
+
+            
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password2" placeholder="Password" {{ form.password.input}}
+               {{ form.password2 }}
+            </div>
+
+
+            <input type="submit" class="btn" value="Sign up" 
+            Register
+            <p class="text-center">
+    <a href="{% url "account:login" %}">Already have an account?</a>
+  </p>
+            
+            
+            <p class="social-text">Or Sign up with social platforms</p>
+            <div class="social-media">
+              <a href="#" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+            
+          </form>
+          {% endblock %}

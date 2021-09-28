@@ -1,0 +1,111 @@
+{% extends "../bose.html" %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% load static %}
+{% block content %}
+<!-- featured section starts  -->
+ 
+<section class="featured" id="featured">
+
+    <h1 class="heading"> <span>featured</span> products </h1>
+
+    <div class="box-container">
+    {% if messages %}
+<div class="alert alert-warning" alert-{{ message.tags }}" role="alert">
+{% for message in messages  %}
+  {{message|safe}} - <a href="{% url "account:wishlist" %}" class="alert-link">Your Wishlist</a>.
+{% endfor %}
+</div>
+{% endif %} 
+ 
+
+        {% for product in products %}
+        <div class="box">
+    
+            
+                
+
+            <div class="image-container">
+            
+                <div class="small-image">
+                  {% for image in product.product_image.all %}
+            {% if image.is_feature%}
+                    <img src="{{ image.image.url }}" class="small-image-1" alt="{{ image.image.alt_text }}">
+                    <img src="{{ image.image.url }}" class="small-image-1" alt="{{ image.image.alt_text }}">
+                  
+           
+                </div>
+                <div class="big-image">
+                
+                    <img src="{{ image.image.url }}" class="big-image-1" alt="{{ image.image.alt_text }}">
+                  {% endif %}  {% endfor %}
+                </div>
+            </div>
+
+
+            
+            <div class="content">
+                <h3>{{ product.title }}</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>( 250 reviews )</span>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora quasi nesciunt, error fuga facilis autem rerum cumque animi rem natus.</p>
+               
+
+            <label for="select">Qty</label>
+            <select id="select" class="h6 store-select-dropdown">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+
+               
+                <div class="price">${{product.regular_price}}<span>$18.99</span></div>
+                <a href="{{ product.get_absolute_url }}" class="btn">add to cart</a>
+
+                            <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Add to basket</button> 
+
+            
+
+            </div>
+              
+        </div>
+                
+{% endfor %}
+    </div>
+
+</section> 
+
+
+<script>
+
+$(document).on('click', '#add-button', function (e) {
+  e.preventDefault();
+  $.ajax({
+    type: 'POST',
+    url: '{% url "basket:basket_add" %}',
+    data: {
+      productid: $('#add-button').val(),
+      productqty: $('#select option:selected').text(),
+      csrfmiddlewaretoken: "{{csrf_token}}",
+      action: 'post'
+    },
+    success: function (json) {
+      document.getElementById("basket-qty").innerHTML = json.qty
+    },
+    error: function (xhr, errmsg, err) {}
+  });
+})
+
+</script>
+{% endblock %}
+
+
