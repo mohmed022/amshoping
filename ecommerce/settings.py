@@ -39,7 +39,7 @@ MIDDLEWARE = [
     
     "django.middleware.security.SecurityMiddleware",
      # Added Following One Line Of Code
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
+    # 'whitenoise.middleware.WhiteNoiseMiddleware', 
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
