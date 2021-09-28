@@ -74,23 +74,23 @@ WSGI_APPLICATION = "ecommerce.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "dktvc44r6mj8h",
-        "USER": "tgntvalztciipm",
-        "PASSWORD": "85d03aee702c5edb29f9a63de531e09a6e491ea4ac46d06e680656a0a05d5cfa",
-        "HOST": "ec2-18-209-143-227.compute-1.amazonaws.com",
-        "PORT": "5432",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "dktvc44r6mj8h",
+#         "USER": "tgntvalztciipm",
+#         "PASSWORD": "85d03aee702c5edb29f9a63de531e09a6e491ea4ac46d06e680656a0a05d5cfa",
+#         "HOST": "ec2-18-209-143-227.compute-1.amazonaws.com",
+#         "PORT": "5432",
+#     }
+# }
 
 
 
@@ -132,10 +132,10 @@ USE_TZ = True
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 #STATIC_ROOT = os.path.join(BASE_DIR, "live-static-files", "static-root")
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATIC_URL = "/static/"
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfile")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfile")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
