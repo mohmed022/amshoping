@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-# import dj_database_url
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -74,15 +74,14 @@ WSGI_APPLICATION = "ecommerce.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
-# db_from_env = dj_database_url.config()
-# DATABASES['default'].update(db_from_env)
+
 
 # DATABASES = {
 #     "default": {
@@ -98,17 +97,18 @@ DATABASES = {
 
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": "database-1.cluster-ccs9eitlywtm.ap-south-1.rds.amazonaws.com",
-#         "USER": "admin",
-#         "PASSWORD": "Aml782000",
-#         "HOST": "ec2-18-209-143-227.compute-1.amazonaws.com",
-#         "PORT": "3306",
-#     }
-# }
-
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "database-1.cluster-ccs9eitlywtm.ap-south-1.rds.amazonaws.com",
+        "USER": "admin",
+        "PASSWORD": "Aml782000",
+        "HOST": "ec2-18-209-143-227.compute-1.amazonaws.com",
+        "PORT": "3306",
+    }
+}
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
