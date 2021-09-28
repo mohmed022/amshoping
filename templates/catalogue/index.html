@@ -106,7 +106,7 @@
                          {% for image in product.product_image.all %}
                   {% if image.is_feature%}
                 <div class="image">
-                    <img src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
+                    <img src="{{ image.image }}" alt="{{ image.image.alt_text }}">
                 </div>
                 {% endif %}
                  {% endfor %}
