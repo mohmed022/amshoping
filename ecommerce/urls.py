@@ -15,8 +15,8 @@ urlpatterns = [
     path("account/", include("ecommerce.apps.account.urls", namespace="account")),
     path("orders/", include("ecommerce.apps.orders.urls", namespace="orders")),
 ]
-from django.urls import re_path
-from django.views.static import serve
+# from django.urls import re_path
+# from django.views.static import serve
 
 # ... the rest of your URLconf goes here ...
 
