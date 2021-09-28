@@ -152,7 +152,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATIC_URL = "/static/"
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfile")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfile")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -184,10 +184,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # STATIC_URL = '/static/'
 
 # STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, "static"),
-# )
+#      os.path.join(BASE_DIR, "static"),
+#  )
 
-STATIC_ROOT = os.path.join(BASE_DIR, "live-static-files", "static")
+#STATIC_ROOT = os.path.join(BASE_DIR, "live-static-files", "static")
 
 #STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
