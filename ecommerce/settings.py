@@ -84,30 +84,30 @@ WSGI_APPLICATION = "ecommerce.wsgi.application"
 
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "amshoping",
-#         "USER": "postgres",
-#         "PASSWORD": "aml",
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
-
-
-
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "database-1.cluster-ccs9eitlywtm.ap-south-1.rds.amazonaws.com",
-        "USER": "admin",
-        "PASSWORD": "Aml782000",
-        "HOST": "ec2-18-209-143-227.compute-1.amazonaws.com",
-        "PORT": "3306",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "amshoping",
+        "USER": "postgres",
+        "PASSWORD": "aml",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
+
+
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": "database-1.cluster-ccs9eitlywtm.ap-south-1.rds.amazonaws.com",
+#         "USER": "admin",
+#         "PASSWORD": "Aml782000",
+#         "HOST": "ec2-18-209-143-227.compute-1.amazonaws.com",
+#         "PORT": "3306",
+#     }
+# }
 # db_from_env = dj_database_url.config()
 # DATABASES['default'].update(db_from_env)
 
