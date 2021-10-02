@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+
 # import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,8 +16,8 @@ SECRET_KEY = "django-insecure-*-7nxx+dkrjm*oyaxt47l#jwog-i#z9bwcyr@g&g^fc*e)nx-_
 # DEBUG = True
 DEBUG = False
  
-ALLOWED_HOSTS = ['127.0.0.1', 'amshoping.herokuapp.com']
-
+#ALLOWED_HOSTS = ['127.0.0.1', 'amshoping.herokuapp.com']
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
